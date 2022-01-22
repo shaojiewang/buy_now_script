@@ -1,17 +1,21 @@
 import datetime #模块
 now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+print(now)
 import time
 #全自动化Python代码操作
 from selenium import webdriver
-times = "2021-11-04 21:00:00.00000000"
+times = "2022-01-22 19:59:59.60000000"
 browser = webdriver.Chrome()
+
+browser.maximize_window()
+
 browser.get("https://www.taobao.com")
 time.sleep(3)                
 if browser.find_element_by_link_text("亲，请登录"):
     browser.find_element_by_link_text("亲，请登录").click()
 
 print(f"请尽快扫码登录")
-time.sleep(10)
+time.sleep(30)
 browser.get("https://cart.taobao.com/cart.htm")
 time.sleep(3)
 
