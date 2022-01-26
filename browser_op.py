@@ -28,19 +28,22 @@ class browser_operations():
         if self.msEdge:
             # download
             zip_path = 'msedge.zip'
-            edge_url='https://msedgedriver.azureedge.net/97.0.1072.69/edgedriver_win64.zip'
-            driver_file=requests.get(edge_url)
-            with open(zip_path, 'wb') as zip_file:
-                zip_file.write(driver_file.content)
+            if not os.path.exists(zip_path):
+                edge_url='https://msedgedriver.azureedge.net/97.0.1072.69/edgedriver_win64.zip'
+                driver_file=requests.get(edge_url)
+                with open(zip_path, 'wb') as zip_file:
+                    zip_file.write(driver_file.content)
 
             # unzip
-            zip_file = zipfile.ZipFile(zip_path)
-            zip_list = zip_file.namelist() # 得到压缩包里所有文件
-            for f in zip_list:
-                if f.endswith('.exe'):
-                    zip_file.extract(f, '') # 循环解压文件到指定目录
+            exe_path = 'msedgedriver.exe'
+            if not os.path.exists(exe_path):
+                zip_file = zipfile.ZipFile(zip_path)
+                zip_list = zip_file.namelist() # 得到压缩包里所有文件
+                for f in zip_list:
+                    if f.endswith('.exe'):
+                        zip_file.extract(f, '') # 循环解压文件到指定目录
  
-            zip_file.close() # 关闭文件，必须有，释放内存
+                zip_file.close() # 关闭文件，必须有，释放内存
 
             return
 
